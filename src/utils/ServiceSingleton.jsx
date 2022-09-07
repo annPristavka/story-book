@@ -1,8 +1,8 @@
-import {v4 as uuidv4} from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 
 export class SirviceSingleton {
   static #toasts = []
-  static #ref = {add: () => {}, delete: () => {}}
+  static #ref = { add: () => {}, delete: () => {} }
   static #instance = SirviceSingleton
 
   static refElement(ref) {
@@ -20,17 +20,17 @@ export class SirviceSingleton {
   static addToast = (newToast) => {
     if (this.#toasts.length < 3) {
       this.#toasts.push(newToast)
-      this.#ref.add(newToast)  
+      this.#ref.add(newToast)
     }
   }
 
   static deleteToast = (toastId) => {
-    console.log('ToastSingleton', this.#toasts)
-
-    return this.#toasts.filter(toast => toastId !== toast.id)
+    this.#toasts.filter(
+      (toast) => toastId !== toast.id,
+    )
   }
 
-  static createToast = ({theme, type, position}) => {
+  static createToast = ({ theme, type, position }) => {
     const createToast = {
       position,
       id: uuidv4(),
@@ -38,7 +38,6 @@ export class SirviceSingleton {
       theme,
     }
     this.addToast(createToast)
-   
   }
 
   static showHistory = () => {
@@ -46,8 +45,6 @@ export class SirviceSingleton {
   }
 
   static deleteToasts = () => {
-     this.#toasts = []
-     console.log('ToastSingleton', this.#toasts)
-
+    this.#toasts = []
   }
 }

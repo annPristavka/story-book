@@ -12,7 +12,6 @@ function App() {
   return (
     <Provider store={store}>
       <ErrorBoundaries>
-        {/* <Toast /> */}
         <Settings />
         <GlobalStyles />
         <ToastProvider />

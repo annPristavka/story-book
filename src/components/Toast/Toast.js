@@ -9,29 +9,34 @@ import {
   Icon,
   CloseImg,
   Wrapper,
+  R,
 } from './styled'
 
 const Toast = ({
   theme,
-  onClick,
+  deleteToast,
   type,
+  id,
+  position,
   forwardedRef,
 }) => {
   return (
-    <Container backgroundColor={theme} ref={forwardedRef}>
+    <Container
+      ref={forwardedRef}
+      backgroundColor={theme}
+      positionToast={position}>
       <Wrapper>
         {typeImg[type]}
         <Title>{typeInfo[type]}</Title>
       </Wrapper>
-
-      <CloseImg src={close} onClick={onClick} />
+      <CloseImg src={close} onClick={deleteToast(id)} />
     </Container>
   )
 }
 
 Toast.propTypes = {
   theme: PropTypes.string,
-  onClick: PropTypes.func,
+  deleteToast: PropTypes.func,
   type: PropTypes.string,
 }
 

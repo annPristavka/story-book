@@ -1,19 +1,20 @@
-import React, { useLayoutEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import ToastContainer from './ToastContainer/ToastContainer'
 import { SirviceSingleton } from '../utils/ServiceSingleton'
 
 const ToastProvider = (props) => {
   const ref = useRef(null)
 
-  const toasts =  SirviceSingleton.showHistory()
+  const toasts = SirviceSingleton.showHistory()
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     SirviceSingleton.refElement(ref.current)
-  }, [])
+  }, [toasts])
 
-  console.log('toasts', toasts)
 
-  return <ToastContainer ref={ref} toasts={toasts}/>
+  return (
+    <ToastContainer ref={ref} {...props}  />
+  )
 }
 
 export default ToastProvider

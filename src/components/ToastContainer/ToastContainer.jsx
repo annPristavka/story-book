@@ -11,12 +11,19 @@ import Toast from '../Toast'
 import { positionInfo } from '../../constants'
 import { SirviceSingleton } from '../../utils/ServiceSingleton'
 
-import { Wrapper } from './styled'
+import { Wrapper, R } from './styled'
 
 const ToastContainer = React.forwardRef((props, ref) => {
   const [documentPortal, _] = useState(document.body)
   const [position, setPosition] = useState('')
-  const [toastProps, setToastProps] = useState({})
+  // const [toastProps, setToastProps] = useState({})
+
+  const toasts = SirviceSingleton.showHistory()
+
+  const toastRedux = useSelector(
+    (state) => state.toast.toasts,
+  )
+
 
   useImperativeHandle(
     ref,
@@ -27,31 +34,32 @@ const ToastContainer = React.forwardRef((props, ref) => {
     [],
   )
 
-  const addHandleToast = useCallback(
-    (newToast) => {
-      setPosition(newToast.position)
-      setToastProps(newToast)
-      setTimeout(function () {                     // проверка времени показа
-        SirviceSingleton.deleteToast(toastProps.id)
-      }, 3000)
-    },
-    [toastProps],
-  )
+  const addHandleToast = useCallback((newToast) => {
+    setPosition(newToast.position)
+
+    // setPosition(newToast.position)
+    // setToastProps(newToast)
+    // setTimeout(function () {                     // проверка времени показа
+    //   SirviceSingleton.deleteToast(toastProps.id)
+    // }, 3000)
+  }, [])
 
   const deleteHandleToast = (idToast) => {
-    SirviceSingleton.deleteToast(toastProps.id)
+    SirviceSingleton.deleteToast(idToast)
   }
 
   return ReactDOM.createPortal(
-    <Wrapper positionInfo={position}>
-      {props.toasts.map((toast) => (
-        <Toast
-          {...toastProps}
-          key={toast.id}
-          forwardedRef={ref}
-          onClick={deleteHandleToast}
-        />
-      ))}
+    <Wrapper >
+      <R>
+        {SirviceSingleton.showHistory().map((toast) => (
+          <Toast
+            {...toast}
+            key={toast.id}
+            deleteToast={deleteHandleToast}
+            forwardedRef={ref}
+          />
+        ))}
+      </R>
     </Wrapper>,
     documentPortal,
   )

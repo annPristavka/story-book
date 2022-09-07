@@ -1,16 +1,79 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import theme from '../../theme'
+
+export const R = styled.div`
+  position: relative;
+  width: 100%;
+  height: 60px;
+  z-index: 1000;
+
+  ${(props) => {
+    switch (props.positionToast) {
+      case 'top-left':
+        return css`
+          top: 0px;
+          left: 0px;
+        `
+
+      case 'top-right':
+        return css`
+          top: 0px;
+          right: 0px;
+        `
+
+      case 'bottom-left':
+        return css`
+          bottom: 0px;
+          left: 0px;
+        `
+
+      case 'bottom-right':
+        return css`
+          bottom: 0px;
+          right: 0px;
+        `
+    }
+  }}
+`
 
 export const Container = styled.div`
   max-width: ${theme.length[1]}px;
   width: 100%;
   height: ${theme.length[5]}px;
-  background-color: ${props => props.backgroundColor};
+  background-color: ${(props) => props.backgroundColor};
   border-radius: ${theme.borderRadius[2]}px;
   color: ${theme.colors.white};
-  position: relative;
+  position: absolute;
   margin: ${theme.margin[0]}px;
   z-index: ${theme.zIndex[1]};
+
+  ${(props) => {
+    switch (props.positionToast) {
+      case 'top-left':
+        return css`
+          top: 0px;
+          left: 0px;
+        `
+
+      case 'top-right':
+        return css`
+          top: 0px;
+          right: 0px;
+        `
+
+      case 'bottom-left':
+        return css`
+          bottom: 0px;
+          left: 0px;
+        `
+
+      case 'bottom-right':
+        return css`
+          bottom: 0px;
+          right: 0px;
+        `
+    }
+  }}
 `
 
 export const Title = styled.p`

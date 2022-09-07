@@ -16,7 +16,7 @@ export function toastReducer(state = initialState, action) {
         toasts: [...state.toasts, action.payload],
       }
     case ADD_TOAST:
-      return { toasts: [action.payload] }
+      return { toasts: [...state.toasts, action.payload] }
 
     case CLEAR_TOASTS:
       return { toasts: [] }
