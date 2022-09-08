@@ -20,11 +20,7 @@ const ToastContainer = React.forwardRef((props, ref) => {
   const [, forceUpdate] = useState({}) // force
 
   const toasts = SirviceSingleton.showHistory()
-  let count = 0
-  console.log(
-    'тут тосты приходят',
-    SirviceSingleton.showHistory(),
-  )
+
 
   useImperativeHandle(
     ref,
@@ -39,7 +35,7 @@ const ToastContainer = React.forwardRef((props, ref) => {
     (newToast) => {
       for (let i = 0; i < toasts.length; i++) {
         if (toasts[i].position === newToast.position) {
-          count++
+         // count++
         }
       }
 
@@ -67,7 +63,7 @@ const ToastContainer = React.forwardRef((props, ref) => {
             key={toast.id}
             deleteToast={deleteHandleToast}
             toasts={toasts}
-            count={count}
+            // count={count}
           />
         ))}
       </R>

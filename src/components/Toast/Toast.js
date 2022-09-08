@@ -23,14 +23,13 @@ const Toast = ({
   position,
   deleteToast,
   toasts,
-  count,
+  // count,
 }) => {
-  console.log('hello toats', toasts)
 
   return (
     <Container
       backgroundColor={theme}
-      count={count}
+      // count={count}
       positionToast={position}>
       <Wrapper>
         {typeImg[type]}

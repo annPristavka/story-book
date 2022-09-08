@@ -16,25 +16,29 @@ export const Container = styled.div`
     switch (props.positionToast) {
       case 'top-left':
         return css`
-          top: ${100 * props.count}px;
+          // top: ${100 * props.count}px;
+          top: 0px;
           left: 0px;
         `
 
       case 'top-right':
         return css`
-          top: ${100 * props.count}px;
+          // top: ${100 * props.count}px;
+          top: 0px;
           right: 0px;
         `
 
       case 'bottom-left':
         return css`
-          bottom: ${100 * props.count}px;
+          // bottom: ${100 * props.count}px;
+          bottom: 0px;
           left: 0px;
         `
 
       case 'bottom-right':
         return css`
-          bottom: ${100 * props.count}px;
+          // bottom: ${100 * props.count}px;
+          bottom: 0px;
           right: 0px;
         `
     }
