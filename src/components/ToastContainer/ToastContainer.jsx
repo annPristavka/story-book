@@ -14,49 +14,60 @@ import { SirviceSingleton } from '../../utils/ServiceSingleton'
 import { Wrapper, R } from './styled'
 
 const ToastContainer = React.forwardRef((props, ref) => {
-  const [documentPortal, _] = useState(document.body)
-  const [position, setPosition] = useState('')
-  // const [toastProps, setToastProps] = useState({})
+  // const [count, setCount] = useState(0)
+  const [documentPortal, _] = useState(document.body) // portal
+
+  const [, forceUpdate] = useState({}) // force
 
   const toasts = SirviceSingleton.showHistory()
-
-  const toastRedux = useSelector(
-    (state) => state.toast.toasts,
+  let count = 0
+  console.log(
+    'тут тосты приходят',
+    SirviceSingleton.showHistory(),
   )
-
 
   useImperativeHandle(
     ref,
     () => ({
       add: addHandleToast,
-      delete: deleteHandleToast,
+      onDelete: deleteHandleToast,
     }),
     [],
   )
 
-  const addHandleToast = useCallback((newToast) => {
-    setPosition(newToast.position)
+  const addHandleToast = useCallback(
+    (newToast) => {
+      for (let i = 0; i < toasts.length; i++) {
+        if (toasts[i].position === newToast.position) {
+          count++
+        }
+      }
 
-    // setPosition(newToast.position)
-    // setToastProps(newToast)
-    // setTimeout(function () {                     // проверка времени показа
-    //   SirviceSingleton.deleteToast(toastProps.id)
-    // }, 3000)
-  }, [])
+      forceUpdate({})
 
-  const deleteHandleToast = (idToast) => {
-    SirviceSingleton.deleteToast(idToast)
+      setTimeout(function () {
+        SirviceSingleton.deleteToast(newToast.id)
+        forceUpdate({})
+      }, 3000)
+    },
+    [toasts],
+  )
+
+  const deleteHandleToast = (id) => () => {
+    SirviceSingleton.deleteToast(id)
+    forceUpdate({})
   }
 
   return ReactDOM.createPortal(
-    <Wrapper >
-      <R>
+    <Wrapper>
+      <R ref={ref}>
         {SirviceSingleton.showHistory().map((toast) => (
           <Toast
             {...toast}
             key={toast.id}
             deleteToast={deleteHandleToast}
-            forwardedRef={ref}
+            toasts={toasts}
+            count={count}
           />
         ))}
       </R>

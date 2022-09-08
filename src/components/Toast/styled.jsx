@@ -16,25 +16,25 @@ export const Container = styled.div`
     switch (props.positionToast) {
       case 'top-left':
         return css`
-          top: 0px;
+          top: ${100 * props.count}px;
           left: 0px;
         `
 
       case 'top-right':
         return css`
-          top: 0px;
+          top: ${100 * props.count}px;
           right: 0px;
         `
 
       case 'bottom-left':
         return css`
-          bottom: 0px;
+          bottom: ${100 * props.count}px;
           left: 0px;
         `
 
       case 'bottom-right':
         return css`
-          bottom: 0px;
+          bottom: ${100 * props.count}px;
           right: 0px;
         `
     }
@@ -42,8 +42,8 @@ export const Container = styled.div`
 `
 
 export const Title = styled.p`
-  font-size: ${theme.fontSizes[2]}px;
-  font-family: 'Qwitcher Grypen', cursive;
+  font-size: ${theme.fontSizes[3]}px;
+  font-family: ${theme.font};
 `
 
 export const Icon = styled.img`

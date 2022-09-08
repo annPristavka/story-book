@@ -24,15 +24,15 @@ const Settings = React.memo(() => {
     position: '',
   })
 
-  const dispatch = useDispatch()
+  const [, forceUpdate] = useState({})
 
-  const notify = () => {
-    dispatch(addToast(option))
-    SirviceSingleton.createToast(option)
+  const createToast = () => {
+    SirviceSingleton.createToast(option) // create toast
   }
 
   const deleteAllToasts = () => {
     SirviceSingleton.deleteToasts()
+    forceUpdate({})
   }
 
   return (
@@ -65,8 +65,10 @@ const Settings = React.memo(() => {
         />
       </Wrapper>
       <WrapperButton>
-        <Button onClick={notify}> Show Toast</Button>
-        <Button onClick={deleteAllToasts}>Clear Toast</Button>
+        <Button onClick={createToast}> Show Toast</Button>
+        <Button onClick={deleteAllToasts}>
+          Clear Toast
+        </Button>
         <ToastContainer />
       </WrapperButton>
       <ToastProvider />

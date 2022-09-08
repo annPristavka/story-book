@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 export class SirviceSingleton {
   static #toasts = []
-  static #ref = { add: () => {}, delete: () => {} }
+  static #ref = { add: () => {}, onDelete: () => {} }
   static #instance = SirviceSingleton
 
   static refElement(ref) {
@@ -25,9 +25,11 @@ export class SirviceSingleton {
   }
 
   static deleteToast = (toastId) => {
-    this.#toasts.filter(
-      (toast) => toastId !== toast.id,
+    this.#toasts = this.#toasts.filter(
+      (toast) => toast.id !== toastId,
     )
+    // this.#ref.onDelete(this.#toasts)
+    return this.#toasts
   }
 
   static createToast = ({ theme, type, position }) => {
@@ -46,5 +48,6 @@ export class SirviceSingleton {
 
   static deleteToasts = () => {
     this.#toasts = []
+    return this.#toasts
   }
 }

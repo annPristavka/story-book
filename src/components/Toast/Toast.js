@@ -1,4 +1,8 @@
-import React from 'react'
+import React, {
+  useCallback,
+  useState,
+  useEffect,
+} from 'react'
 import PropTypes from 'prop-types'
 import { SirviceSingleton } from '../../utils/ServiceSingleton'
 import close from '../../assets/close.svg'
@@ -14,30 +18,38 @@ import {
 
 const Toast = ({
   theme,
-  deleteToast,
   type,
   id,
   position,
-  forwardedRef,
+  deleteToast,
+  toasts,
+  count,
 }) => {
+  console.log('hello toats', toasts)
+
   return (
     <Container
-      ref={forwardedRef}
       backgroundColor={theme}
+      count={count}
       positionToast={position}>
       <Wrapper>
         {typeImg[type]}
         <Title>{typeInfo[type]}</Title>
       </Wrapper>
-      <CloseImg src={close} onClick={deleteToast(id)} />
+      <CloseImg
+        src={close}
+        onClick={deleteToast(id)}
+      />
     </Container>
   )
 }
 
 Toast.propTypes = {
   theme: PropTypes.string,
-  deleteToast: PropTypes.func,
+  id: PropTypes.string,
   type: PropTypes.string,
+  position: PropTypes.string,
+  deleteToast: PropTypes.func,
 }
 
 export default Toast
